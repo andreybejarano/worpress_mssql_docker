@@ -1,0 +1,18 @@
+version: "3.1"
+services:
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:2017-latest-ubuntu
+    container_name: sql_server_2017
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "Abc12345678*"
+      MSSQL_PID: "Express"
+    ports:
+      - 1433:1433
+  wordpress:
+    build: .
+    container_name: wordpress
+    volumes:  
+      - ".:/var/www/html/"
+    ports:
+      - 80:80
