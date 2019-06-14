@@ -2742,4 +2742,3 @@ if ( ! function_exists( 'wp_text_diff' ) ) :
 		return $r;
 	}
 endif;
-
