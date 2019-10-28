@@ -12,6 +12,8 @@
   "author": "Cristian Torrico",
   "license": "ISC",
   "devDependencies": {
+    "@babel/preset-env": "^7.6.3",
+    "@fortawesome/fontawesome-free": "^5.11.2",
     "gulp": "^4.0.0",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-imagemin": "^5.0.3",
@@ -19,9 +21,12 @@
     "gulp-sourcemaps": "^2.6.0"
   },
   "dependencies": {
+    "@babel/core": "^7.6.4",
     "aos": "^2.3.4",
     "browser-sync": "^2.26.7",
-    "graceful-fs": "^4.1.11",
+    "copy-dir": "^1.2.0",
+    "fancybox": "^3.0.1",
+    "graceful-fs": "^4.2.3",
     "gulp-clean-css": "^3.7.0",
     "gulp-concat": "^2.6.1",
     "gulp-mode": "^1.0.2",
@@ -29,7 +34,10 @@
     "gulp-string-replace": "^1.1.2",
     "gulp-strip-css-comments": "^2.0.0",
     "gulp-uglify": "^3.0.2",
+    "gulp-uglify-es": "^2.0.0",
     "jquery": "^3.4.1",
-    "node.normalize.scss": "^3.0.3"
+    "jquery.fancybox": "^2.1.5",
+    "node.normalize.scss": "^3.0.3",
+    "swiper": "^5.2.0"
   }
 }

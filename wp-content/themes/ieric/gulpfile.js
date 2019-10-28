@@ -9,23 +9,36 @@ var gulp = require('gulp'),
 browserSync = require('browser-sync'),
     replace = require('gulp-string-replace'),
     imagemin = require('gulp-imagemin'),
-    mode = require('gulp-mode')();
+    mode = require('gulp-mode')(),
+    copydir = require('copy-dir');
 
 // Create browserSync server
 var server = browserSync.create();
+
+
+//Copy folder from node_modules to vendor 
+copydir.sync('./node_modules/@fortawesome', './vendor', {
+    utimes: true, // keep add time and modify time
+    mode: true, // keep file mode
+    cover: true // cover file when exists, default is true
+})
 
 // Set paths for dest and source files
 var paths = {
     dest: './dist',
 
     styles: {
-        src: './assets/scss/**/*.sass',
+        src: [
+            './assets/sass/**/*.scss'
+        ],
         sourcemaps: './dist/css/sourcemap.css'
     },
 
     scripts: {
         src: [
             './node_modules/jquery/dist/jquery.min.js',
+            './node_modules/jquery.fancybox/source/jquery.fancybox.js',
+            './node_modules/swiper/js/swiper.min.js',
             './assets/js/app.js'
         ]
     },

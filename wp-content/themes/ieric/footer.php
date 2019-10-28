@@ -11,24 +11,58 @@
 
 ?>
 
-	</div><!-- #content -->
 
-	<footer id="colophon" class="site-footer">
-		<div class="site-info">
-			<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'ieric' ) ); ?>">
-				<?php
-				/* translators: %s: CMS name, i.e. WordPress. */
-				printf( esc_html__( 'Proudly powered by %s', 'ieric' ), 'WordPress' );
-				?>
-			</a>
-			<span class="sep"> | </span>
-				<?php
-				/* translators: 1: Theme name, 2: Theme author. */
-				printf( esc_html__( 'Theme: %1$s by %2$s.', 'ieric' ), 'ieric', '<a href="http://underscores.me/">Underscores.me</a>' );
-				?>
-		</div><!-- .site-info -->
-	</footer><!-- #colophon -->
-</div><!-- #page -->
+ <div class="footer">
+    <div class="menu-cols">
+       <div class="col">
+          <?php
+              wp_nav_menu( array(
+                'theme_location' => 'menu-3',
+                'menu_class'        => 'lista-footer',
+                'add_li_class'  => 'item-footer',
+                'menu_id'        => 'Footer1',
+              ) );
+            ?>
+       </div>
+       <div class="col">
+          <?php
+              wp_nav_menu( array(
+                'theme_location' => 'menu-4',
+                'menu_class'        => 'lista-footer',
+                'add_li_class'  => 'item-footer',
+                'menu_id'        => 'Footer2',
+              ) );
+            ?>
+       </div>
+       <div class="col">
+          <?php
+              wp_nav_menu( array(
+                'theme_location' => 'menu-5',
+                'menu_class'        => 'lista-footer',
+                'add_li_class'  => 'item-footer',
+                'menu_id'        => 'Footer3',
+              ) );
+            ?>
+       </div>
+       <div class="col">
+          <?php
+              wp_nav_menu( array(
+                'theme_location' => 'menu-6',
+                'menu_class'        => 'lista-footer',
+                'add_li_class'  => 'item-footer',
+                'menu_id'        => 'Footer4',
+              ) );
+            ?>
+       </div>
+    </div>
+    <div class="info-general">
+       <h3><?=the_field('titulo', 'option');?></h3>
+       <p><i class="fas fa-map-marker-alt"></i> <?=the_field('ubicacion', 'option');?></p>
+       <p><i class="fas fa-mobile-alt"></i> Tel: <?=the_field('telefono', 'option');?></p>
+       <p><i class="fas fa-clock"></i> <?=the_field('horario_de_atencion', 'option');?></p>
+    </div>
+ </div>
+</div>
 
 <?php wp_footer(); ?>
 
