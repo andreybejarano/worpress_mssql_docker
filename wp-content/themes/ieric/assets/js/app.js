@@ -32,8 +32,6 @@ $('.nav-links .has-sub-menu .extra-holder').click(function () {
 $('.coyuntura-col #year').change(function (e) {
     var value = $(this).val();
 
-
-
     window.location.href = location.protocol + '//' + location.host + location.pathname + '?' + value;
 });
 
@@ -60,30 +58,67 @@ $(document).ready(function () {
     // $("#fancy-box-opener").attr('href', $('.gallery-holder .swiper-slide-active:not(.swiper-slide-duplicate) figure img').attr('src'));
 
 
-    //Slider vertical
-    var mySwiper = new Swiper('.vertical-slider.swiper-container', {
-        // Optional parameters
 
-        direction: 'horizontal',
-        loop: true,
-        slidesPerView: 1,
-        autoplay: {
-            delay: 3000,
-        },
 
-        // Navigation arrows
-        navigation: {
-            nextEl: '.next-btn',
-        },
 
-        breakpoints: {
-            // when window width is >= 320px
-            480: {
-                direction: 'vertical',
-                spaceBetween: 20
+    if ($('body').hasClass('home')) {
+
+        //Slider vertical Home
+        var mySwiper = new Swiper('.home .vertical-slider.swiper-container', {
+            // Optional parameters
+
+            direction: 'vertical',
+            loop: true,
+            slidesPerView: 3,
+            spaceBetween: 20,
+            freeMode: true,
+            grabCursor: true,
+            autoHeight: true,
+            // autoplay: {
+            //     delay: 3000,
+            // },
+
+
+            // Navigation arrows
+            navigation: {
+                nextEl: '.swiper-button-next',
             },
-        }
-    })
+
+            breakpoints: {
+                // when window width is >= 320px
+
+            }
+        })
+
+    } else {
+
+        //Slider vertical
+        var mySwiper = new Swiper('.vertical-slider.swiper-container', {
+            // Optional parameters
+
+            direction: 'horizontal',
+            loop: true,
+            slidesPerView: 1,
+            // autoplay: {
+            //     delay: 3000,
+            // },
+
+            // Navigation arrows
+            navigation: {
+                nextEl: '.next-btn',
+            },
+
+            breakpoints: {
+                // when window width is >= 320px
+                480: {
+                    direction: 'vertical',
+                    spaceBetween: 20
+                },
+            }
+        })
+
+    }
+
 
 
     //slider horizontal

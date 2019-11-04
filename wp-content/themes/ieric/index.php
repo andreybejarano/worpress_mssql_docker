@@ -18,13 +18,9 @@
  */
 
 
-
-
 //Modulos inicio x 4 + texto destacado
 //Página de inicio
 $fields = get_fields($post->ID);
-
-
 
 //Listado de noticias destacadas
 $args=array(
@@ -78,17 +74,19 @@ get_header();
                      $titulo_secundario = get_field("titulo_secundario", $post->ID);  
                      ?>
 
-                     <article class="item-news swiper-slide">
-                        <div class="img" style="background-image: url('<?= $img[0]?>');"></div>
-                        <a href="<?=get_post_permalink()?>" class="info-news">
-                           <?php if($titulo_secundario): ?>
-                              <span class="category"><?=$titulo_secundario?></span>
-                           <?php endif?>
-                           
-                           <h3 class="main-title"><?=$post->post_title?></h3>
-                           <p class="description"><?=$post->post_excerpt?></p>
-                        </a>
-                     </article>
+                     <div class="item-news swiper-slide">
+                        
+                           <img src="<?= $img[0]?>" alt="">
+                           <a href="<?=get_post_permalink()?>" class="info-news">
+                              <?php if($titulo_secundario): ?>
+                                 <span class="category"><?=$titulo_secundario?></span>
+                              <?php endif?>
+                              
+                              <h3 class="main-title"><?=$post->post_title?></h3>
+                              <p class="description"><?=$post->post_excerpt?></p>
+                           </a>
+                        
+                     </div>
 
                  <?php endforeach?>
 
