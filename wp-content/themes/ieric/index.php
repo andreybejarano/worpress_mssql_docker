@@ -67,7 +67,7 @@ get_header();
          <section class="starred-col">
             <h2 class="title">Destacados</h2>
             <p class="subtitle">Resoluciones y noticias relevantes del sector de la construcción</p>
-            <div class="starred-news swiper-container">
+            <div class="starred-news vertical-slider swiper-container">
                <div class="swiper-wrapper">
 
 

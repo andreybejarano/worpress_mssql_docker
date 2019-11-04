@@ -27,6 +27,16 @@ $('.nav-links .has-sub-menu .extra-holder').click(function () {
 
 });
 
+
+//change select in conyuntura
+$('.coyuntura-col #year').change(function (e) {
+    var value = $(this).val();
+
+
+
+    window.location.href = location.protocol + '//' + location.host + location.pathname + '?' + value;
+});
+
 // Select en destacados
 
 $('#select-destacados').click(function () {
@@ -51,12 +61,12 @@ $(document).ready(function () {
 
 
     //Slider vertical
-    var mySwiper = new Swiper('.starred-news.swiper-container', {
+    var mySwiper = new Swiper('.vertical-slider.swiper-container', {
         // Optional parameters
-        direction: 'vertical',
+
+        direction: 'horizontal',
         loop: true,
-        autoHeight: true,
-        slidesPerView: 3,
+        slidesPerView: 1,
         autoplay: {
             delay: 3000,
         },
@@ -65,6 +75,14 @@ $(document).ready(function () {
         navigation: {
             nextEl: '.next-btn',
         },
+
+        breakpoints: {
+            // when window width is >= 320px
+            480: {
+                direction: 'vertical',
+                spaceBetween: 20
+            },
+        }
     })
 
 

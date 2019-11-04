@@ -1,19 +1,23 @@
 <?php 
- $seleccion = get_sub_field('seleccionar_nuevo_registro');
-$link = get_sub_field('enlace');
-$elemento = get_sub_field('elemento');
+$seleccion = get_sub_field('seleccionar_nuevo_registro');
 ?>
 
 <?php if($seleccion == 'elemento'):
-
+$elemento = get_sub_field('elemento');
 ?>
 			<div class="row-links">
 					<a href="<?= $elemento['archivo']['url'] ?>"  title="<?= $elemento['titulo'] ?>" target="_blank">
                      <div class="extra-holder flex-container align-center">
                         <div class="file-size">
-                           <div class="file-icon pdf"><?= $elemento['archivo']['subtype']?></div>
-                           <span class="block"><?=  FileSizeConvert($elemento['archivo']['filesize']);
- ?></span>
+                           <div class="file-icon pdf"><?php
+	$extension = $elemento['archivo']['subtype'];
+	if($extension == 'vnd.ms-excel'){
+    	$extension = 'xls';
+	}
+	echo $extension;
+                           
+?></div>
+                       <span class="block"><?=FileSizeConvert($elemento['archivo']['filesize']);?></span>
                         </div>
                         <div class="file-info">
                            <h2><?= $elemento['titulo']?></h2>
@@ -25,18 +29,28 @@ $elemento = get_sub_field('elemento');
 <?php endif ?>
 
 
+<?php if($seleccion == 'enlace'): 
+ 
+ $link = get_sub_field('enlace');
 
-<?php if($seleccion == 'link'): 
+
+
+ 
 if($link['enlace_interno']){
-	$url_link = $link['enlace_interno'];
+	//$url_link = get_permalink($link['enlace_interno']->ID);
+    $id_link = $link['enlace_interno']->ID;
+	$url_link = get_permalink($id_link);
+
 }
 
 if($link['enlace_externo']){
+
 $url_link = $link['enlace_externo'];
 }
 ?>
 <div class="row-links">
-<a href="<?= $url_link ?>" target="_blank">
+
+				<a href="<?= $url_link ?>" target="_blank">
                      <div class="extra-holder flex-container align-center">
                         <div class="file-size">
                            <div class="file-icon link"></div>

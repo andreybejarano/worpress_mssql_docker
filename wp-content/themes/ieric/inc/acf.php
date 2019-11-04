@@ -21,6 +21,27 @@ if( function_exists('acf_add_options_page') ) {
 }
 
 
+//maps
+
+if(is_admin()){
+    wp_register_script('aa_js_googlemaps_script',  'https://maps.googleapis.com/maps/api/js?key=AIzaSyCdvzJPCZSCtu-YpS9djkruUwmii1m9jIA&libraries=places'); // with Google Maps API fix
+    wp_enqueue_script('aa_js_googlemaps_script');
+
+
+    add_action('admin_head', 'my_custom_css');
+
+    function my_custom_css() {
+    echo '<style>
+        #acf-field-group-fields,
+        #acf-field-group-fields .hide-if-js,
+        .closed .inside {
+            display: block !important;
+        } 
+    </style>';
+    }
+}
+
+
 
 function FileSizeConvert($bytes)
 {

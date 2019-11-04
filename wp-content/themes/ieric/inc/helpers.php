@@ -19,6 +19,46 @@ function curl_get_file_contents($URL)
 
 
 
+add_filter ( 'nav_menu_css_class', 'so_37823371_menu_item_class', 10, 4 );
+
+function so_37823371_menu_item_class ( $classes, $item, $args, $depth ){
+
+    global $post;
+
+    if(is_singular('tramites')){
+        //tramites
+        if($item->ID == 74){
+            $classes[] = 'current-menu-item';
+        }
+    }
+
+    if(is_singular('estadisticas')){
+        //tramites
+        if($item->ID == 497){
+            $classes[] = 'current-menu-item';
+        }
+    }
+
+    if(is_singular('certificacioncompete')){
+        //tramites
+        if($item->ID == 526){
+            $classes[] = 'current-menu-item';
+        }
+    }
+
+    if(is_page()){
+        if($post->post_parent == 334){
+            if($item->ID == 393){
+                $classes[] = 'current-menu-item';
+            }
+        }
+    }
+
+    return $classes;
+}
+
+
+
 /**
  * Generate breadcrumbs
  */
@@ -29,16 +69,30 @@ function get_breadcrumb() {
     echo '<div class="breadcrum-bar"><ol class="list">';
     echo '<li class="item"><a href="'.home_url().'" rel="nofollow" class="link">INICIO</a></li>';
   
-     
-    if (is_category() || is_single()) {
-        // echo "&nbsp;&nbsp;>&nbsp;&nbsp;";
-        // the_category(' &bull; ');
-            if (is_single()) {
-
-            }
-    } elseif (is_page()) {
-
+    
+    if(is_singular('destacados')){
         
+        echo "<li class='item'><a href='".DOMAIN."/destacados' rel='nofollow' class='link'>Destacados IERIC</a></li>";
+        echo "<li class='item active'>".$post->post_title."</li>";
+
+    } elseif(is_singular('tramites')){
+
+            $category_detail=get_the_terms($post->ID, 'tramite');//$post->ID
+            echo "<li class='item'><a href='".DOMAIN."/tramites' rel='nofollow' class='link'>TRAMITES</a></li>";
+            echo "<li class='item active'>".$post->post_title."</li>";
+    
+    }elseif(is_singular('estadisticas')){
+
+        $category_detail=get_the_terms($post->ID, 'estadistica');//$post->ID
+        echo "<li class='item'><a href='".DOMAIN."/estadistica' rel='nofollow' class='link'>ESTADÍSTICAS</a></li>";
+        echo "<li class='item active'>".$post->post_title."</li>";
+
+    }elseif(is_singular('certificacioncompete')){
+
+        echo "<li class='item'><a href='".DOMAIN."/certificacioncompete' rel='nofollow' class='link'>Certificaciones de competencias</a></li>";
+        echo "<li class='item active'>".$post->post_title."</li>";
+
+    }elseif (is_page()) {
 
         if($post->post_parent){
             $parent_post = get_post($post->post_parent);
@@ -55,4 +109,90 @@ function get_breadcrumb() {
 
     echo '</ol></div>';
 }
+
+
+
+
+//shortcode custom
+
+add_shortcode( 'informe-de-conyuntura', 'getConyuntura' );
+function getConyuntura() {
+    global $post;
+
+    if($_GET){
+        $array_anio = array_keys($_GET);
+        $anio =  $array_anio[0];
+    }else{
+       $anio = date('Y');
+    }
+    
+    $terms = get_terms( 'an', array(
+        'hide_empty' => false,
+        'order' => 'DESC'
+    ) );
+    $terms_meses = get_terms( 'meses', array(
+        'hide_empty' => false,
+        'orderby' => 'id',
+    ) );
+
+    echo '<div class="coyuntura-col">';
+    echo '<div class="year-ctn"><span class="title">Año</span><div class="year-selector-ctn"><select class="year-selector" name="year" id="year">';
+    foreach($terms as $q){
+
+        if($q->name == $anio ){
+            echo '<option value="'.$q->name.'" selected>'.$q->name.'</option>';
+        }else{
+            echo '<option value="'.$q->name.'">'.$q->name.'</option>';
+        }
+        
+    }
+    echo '</select></div></div>';
+
+    echo '<section class="year-grid">';
+
+
+    foreach($terms_meses as $mes){
+
+        $args = array(
+            'post_type' => 'conyuntura',
+            'tax_query' => array(
+                array(
+                    'taxonomy' => 'an',
+                    'field' => 'slug',
+                    'terms' =>  $anio,
+                ),
+                array(
+                    'taxonomy' => 'meses',
+                    'field' => 'slug',
+                    'terms' => $mes->slug,
+                ),
+            ),
+        );
+        $posts_mes = get_posts($args);
+
+        $exists_post = ($posts_mes) ? '' : 'future';
+        
+        $informe = get_field('archivo_informe',$posts_mes[0]->ID);
+        $resumen = get_field('archivo_resumen',$posts_mes[0]->ID);
+        $gacetilla = get_field('archivo_gacetilla',$posts_mes[0]->ID);
+
+        echo '<article class="item-month '. $exists_post .'"><span class="title">'.$mes->name.'</span><ul class="lista">';
+            if($informe){
+                echo '<li class="item"><a href="'.$informe['url'].'" target="_blank" class="link">Informe completo</a></li>';
+            }
+
+            if($resumen){
+                echo '<li class="item"><a href="'.$resumen['url'].'" target="_blank" class="link">Resumen ejecutivo</a></li>';
+            }
+
+            if($gacetilla){
+                echo '<li class="item"><a href="'.$gacetilla['url'].'" target="_blank" class="link">Gacetilla de prensa</a></li>';
+            }   
+        echo '</ul></article>';
+    }
+    echo '<div class="border"></div></section></div>';
+            
+
+                
+ }
 ?>

@@ -1,4 +1,6 @@
 .header {
+    z-index: 100;
+
     .first-line {
         display: grid;
         grid-template-columns: 50% 50%;
@@ -123,7 +125,8 @@
                         opacity: 1;
                         transition: 0.2s all;
                         display: block;
-                        z-index: 30;
+                        z-index: 100;
+
                     }
                 }
 

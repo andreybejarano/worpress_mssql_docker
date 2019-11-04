@@ -248,9 +248,9 @@ button {
 }
 
 .align-center {
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
+    -webkit-box-align: center !important;
+    -ms-flex-align: center !important;
+    align-items: center !important;
 }
 
 .align-end {

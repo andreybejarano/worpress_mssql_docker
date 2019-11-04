@@ -42,12 +42,21 @@ $terms_tramites_principales = get_terms( array(
 ));
 
 //Listado de OTROS TRÁMITES
-$args = array(
-    'post_type' => 'tramites',
-    'cat' => '13',
-);
+$terms_otros = get_terms( array(
+   'taxonomy' => 'tramite',
+   'hide_empty' => false,
+   'parent'   => 13,
+   'orderby' => 'ID',
+   'order' => 'ASC',
+));
 
-$the_query = new WP_Query($args);
+
+// $args = array(
+//     'post_type' => 'tramites',
+//     'cat' => '13',
+// );
+
+// $the_query = new WP_Query($args);
 
 
 
@@ -77,11 +86,19 @@ get_header(); ?>
              <h2 class="title">SISTEMA DE PAGOS</h2>
              <ul class="list">
                 <?php foreach($terms_sistema_pagos as $term): 
+                   
                     $tipo = get_field('tipo', "term_".$term->term_id);
-                    $link = get_field('link_externo', "term_".$term->term_id);?>
+                    
+                    
+                    if($tipo == "Contenido"){
+                     $link = get_field('elegir_post', "term_".$term->term_id);
+                    }else{
+                     $link = get_field('link_externo', "term_".$term->term_id);
+                    }
+                    ?>
 
                     <?php if($tipo == "Contenido"): ?>
-                        <li class="item"><a href="<?=get_term_link($term->term_id)?>" class="link"><?=$term->name?></a></li>
+                        <li class="item"><a href="<?=  $link ?>" class="link"><?=$term->name?></a></li>
                     <?php else: ?>
                         <li class="item"><a href="<?=$link?>" target="_blank" class="link"><?=$term->name?></a></li>
                     <?php endif; ?>
@@ -99,9 +116,19 @@ get_header(); ?>
           <div class="info-ctn">
              <h2 class="title">TRÁMITES PRINCIPALES</h2>
              <ul class="list">
-                <?php foreach($terms_tramites_principales as $term): ?>
+                <?php foreach($terms_tramites_principales as $term): 
+                    $tipo = get_field('tipo', "term_".$term->term_id);
+                    
+                    
+                    if($tipo == "Contenido"){
+                     $link = get_field('elegir_post', "term_".$term->term_id);
+                    }else{
+                     $link = get_field('link_externo', "term_".$term->term_id);
+                    }
+                  
+                  ?>
                     <?php if($tipo == "Contenido"): ?>
-                        <li class="item"><a href="<?=get_term_link($term->term_id)?>" class="link"><?=$term->name?></a></li>
+                        <li class="item"><a href="<?=  $link ?>" class="link"><?=$term->name?></a></li>
                     <?php else: ?>
                         <li class="item"><a href="<?=$link?>" target="_blank" class="link"><?=$term->name?></a></li>
                     <?php endif; ?>
@@ -119,9 +146,15 @@ get_header(); ?>
           <div class="info-ctn">
              <h2 class="title">OTROS TRÁMITES</h2>
              <ul class="list">
-                <?php foreach($terms_otros as $term): ?>
+                <?php foreach($terms_otros as $term): 
+                  if($tipo == "Contenido"){
+                     $link = get_field('elegir_post', "term_".$term->term_id);
+                    }else{
+                     $link = get_field('link_externo', "term_".$term->term_id);
+                    }
+                  ?>
                     <?php if($tipo == "Contenido"): ?>
-                        <li class="item"><a href="<?=get_term_link($term->term_id)?>" class="link"><?=$term->name?></a></li>
+                        <li class="item"><a href="<?=$link?>" class="link"><?=$term->name?></a></li>
                     <?php else: ?>
                         <li class="item"><a href="<?=$link?>" target="_blank" class="link"><?=$term->name?></a></li>
                     <?php endif; ?>

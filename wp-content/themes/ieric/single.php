@@ -1,37 +1,33 @@
 <?php
-/**
- * The template for displaying all single posts
- *
- * @link https://developer.wordpress.org/themes/basics/template-hierarchy/#single-post
- *
- * @package ieric
- */
 
-get_header();
-?>
+get_header(); ?> 
 
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main">
 
-		<?php
-		while ( have_posts() ) :
-			the_post();
 
-			get_template_part( 'template-parts/content', get_post_type() );
+<div class="listado-contenidos">
 
-			the_post_navigation();
+    <div class="main-columns-holder">
+        <div class="left-column">
+            <!--breadcrum-->
+            <?php get_breadcrumb(); ?>
+            <!--breadcrum-->
+            <div class="row-info">
+                <h1 class="title"><?php the_title(); ?></h1>
+            </div>
 
-			// If comments are open or we have at least one comment, load up the comment template.
-			if ( comments_open() || get_comments_number() ) :
-				comments_template();
-			endif;
+            <div class="left-column-info">
+            
+                <?php include(locate_template('template-parts/content-main.php')); ?>
 
-		endwhile; // End of the loop.
-		?>
+            </div>
+        </div>
 
-		</main><!-- #main -->
-	</div><!-- #primary -->
+        <?php  get_sidebar('right'); ?>
+    </div>
 
-<?php
-get_sidebar();
-get_footer();
+</div>
+
+ 
+ 
+<?php //get_sidebar(); ?>
+<?php get_footer(); ?>
