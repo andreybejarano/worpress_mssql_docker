@@ -247,6 +247,8 @@
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
     margin-bottom: 45px;
+    display: flex;
+    align-items: center;
 }
 
 .select-holder {
@@ -343,12 +345,36 @@
                 width: 100%;
                 height: auto;
                 display: block;
+                width: 150px;
+                object-fit: cover;
+                max-height: 200px;
             }
         }
     }
 }
 
 /* Paginacion */
+
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+
+    &>* {
+        font-size: 15px;
+        font-weight: bold;
+        text-decoration: none;
+        color: #9c9fa7;
+        text-transform: uppercase;
+        border-top: 0 !important;
+        padding: 0 10px;
+
+        &.current {
+            color: #4eb7cd;
+        }
+    }
+}
 
 .common-pagination {
     padding: 20px 0;
@@ -865,6 +891,7 @@
         padding: 25px 16px 0;
         display: block;
         margin-bottom: 15px;
+        padding-top: 0;
 
         >.extra-holder {
             margin-bottom: 23px;
@@ -895,6 +922,10 @@
 
         .destacados-holder+.row-links a .extra-holder figure {
             width: 80px;
+
+            img {
+                width: 100%;
+            }
         }
     }
 

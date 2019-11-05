@@ -94,7 +94,7 @@ get_header();
             </div>
             <div class="footer-starred">
                <span class="next-btn swiper-button-next"><i class="icon fa fa-caret-down"></i></span>
-               <a href="#" class="btn"><i class="icon fa fa-caret-right"></i> Ver todos los destacados</a>
+               <a href="<?= DOMAIN ?>/destacados" class="btn"><i class="icon fa fa-caret-right"></i> Ver todos los destacados</a>
             </div>
          </section>
          <section class="access-col">

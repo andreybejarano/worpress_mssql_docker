@@ -65,10 +65,14 @@ function so_37823371_menu_item_class ( $classes, $item, $args, $depth ){
 function get_breadcrumb() {
     global $post;
 
-
     echo '<div class="breadcrum-bar"><ol class="list">';
-    echo '<li class="item"><a href="'.home_url().'" rel="nofollow" class="link">INICIO</a></li>';
-  
+    echo '<li class="item active">Destadados IERIC</li>';
+
+
+
+    if(is_post_type_archive( 'destacados' ) ){
+        echo "<li class='item'><a href='".DOMAIN."/destacados' rel='nofollow' class='link'>Destacados IERIC</a></li>";
+    }
     
     if(is_singular('destacados')){
         
