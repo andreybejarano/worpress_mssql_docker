@@ -25,8 +25,8 @@
                      </a>
                   </div>
                   <div class="search-col">
-                     <form action="#" id="searchform">
-                     <input type="text" placeholder="Buscar"><i class="fa fa-search icon"></i></form>
+                     <form action="/" id="searchform">
+                     <input type="text" placeholder="Buscar" name="s"><i class="fa fa-search icon"></i></form>
                      <i id="btn-search" class=" icon icon-search fa fa-search"></i>
                      <i id="bars" class="icon icon-bars fa fa-bars"></i>
                   </div>

@@ -142,6 +142,13 @@ echo "<script>var markers_js = " . json_encode($markers_js) . "</script>";
         var latitude = -37.9248496;
         var longitude = -63.7295546;
 
+        var allMarkers = [];
+        var allMarkers_lat = []
+        var allMarkers_lng = []
+
+        var allMarkers_object = [];
+
+
         var infowindow;
         var geocoder = new google.maps.Geocoder();
 
@@ -182,6 +189,10 @@ echo "<script>var markers_js = " . json_encode($markers_js) . "</script>";
                     if (mymarker != null) {
                         mymarker.setMap(null);
                     }
+
+
+                    find_closest_marker(pos, allMarkers, allMarkers_lat, allMarkers_lng, allMarkers_object);
+
 
                     mymarker = new google.maps.Marker({
                         animation: google.maps.Animation.DROP,
@@ -265,9 +276,12 @@ echo "<script>var markers_js = " . json_encode($markers_js) . "</script>";
                     };
                     infoWindow = new google.maps.InfoWindow;
                     infoWindow.setPosition(pos);
+
                     //infoWindow.setContent('Location found.');
                     map.setCenter(pos);
                     map.setZoom(8);
+
+                    
 
                     // Place the new marker
                     if (mymarker != null) {
@@ -281,6 +295,11 @@ echo "<script>var markers_js = " . json_encode($markers_js) . "</script>";
                         position: pos,
                         icon: 'https://mt.google.com/vt/icon/name=icons/onion/SHARED-mymaps-pin-container-bg_4x.png,icons/onion/SHARED-mymaps-pin-container_4x.png,icons/onion/1899-blank-shape_pin_4x.png&highlight=ff000000,A52714,ff000000'
                     }); // end place the new marker
+
+                    
+    
+                    find_closest_marker(pos, allMarkers, allMarkers_lat, allMarkers_lng, allMarkers_object);
+
 
                     // Add event listener. On marker click, close all open infoWindows open current infoWindow.
                     google.maps.event.addListener(mymarker, "click", function () {
@@ -304,6 +323,12 @@ echo "<script>var markers_js = " . json_encode($markers_js) . "</script>";
                 var markerCoords = new google.maps.LatLng(parseFloat(value.ubicacion.lat), parseFloat(value.ubicacion.lng));
                 var html = "<div class='info-blob'><b>" + value.nombre + "</b><br>" + value.direccion + "<br>Tel: " + value.telefono + "<br>Horario de atención: " + value.horario + "<br>Email: <a href='mailto:" + value.email + "'>" + value.email + "</a></div>";
                 var marker = addMarker(html, markerCoords);
+
+
+                
+                allMarkers.push(html);
+                allMarkers_lat.push(value.ubicacion.lat);
+                allMarkers_lng.push(value.ubicacion.lng);
             });
 
             // $(data.d).each(function () {
@@ -332,6 +357,8 @@ echo "<script>var markers_js = " . json_encode($markers_js) . "</script>";
                 icon: 'https://mt.googleapis.com/vt/icon/name=icons/onion/SHARED-mymaps-pin-container_4x.png'
             }); // end place the new marker
 
+            allMarkers_object.push(marker);
+
             // Add event listener. On marker click, close all open infoWindows open current infoWindow.
             google.maps.event.addListener(marker, "click", function () {
                 if (infowindow) infowindow.close();
@@ -339,6 +366,73 @@ echo "<script>var markers_js = " . json_encode($markers_js) . "</script>";
                 infowindow.open(map, marker);
             }); // end add event listener
         }
+
+
+
+        function rad(x) {return x*Math.PI/180;}
+   
+   
+        function find_closest_marker( event, html, lat_, lng_ ) {
+
+        DeleteMarkers();
+         
+        var lat = event.lat;
+        var lng = event.lng;
+        var R = 6371; // radius of earth in km
+        var distances = [];
+        var closest = -1;
+
+
+        for( i=0;i<html.length; i++ ) {
+
+            var mlng = lng_[i];
+            var mlat = lat_[i];
+
+
+            var dLat  = rad(mlat - lat);
+            var dLong = rad(mlng - lng);
+            var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(rad(lat)) * Math.cos(rad(lat)) * Math.sin(dLong/2) * Math.sin(dLong/2);
+            var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+            var d = R * c;
+            distances[i] = d;
+            if ( closest == -1 || d < distances[closest] ) {
+                closest = i;
+            }
+        }
+
+        var markerCoords = new google.maps.LatLng(parseFloat(lat_[closest]), parseFloat(lng_[closest]));
+
+        mymarker_near = new google.maps.Marker({
+            animation: google.maps.Animation.DROP,
+            map: map,
+            position: markerCoords,
+            icon: 'https://mt.googleapis.com/vt/icon/name=icons/onion/SHARED-mymaps-pin-container_4x.png'
+        }); // end place the new marker
+
+        
+        allMarkers_object.push(mymarker_near);
+
+        // Add event listener. On marker click, close all open infoWindows open current infoWindow.
+        google.maps.event.addListener(mymarker_near, "click", function () {
+            if (infowindow) infowindow.close();
+            infowindow = new google.maps.InfoWindow({ content: html[closest] });
+            infowindow.open(map, mymarker_near);
+        }); // end add event listener
+
+        infowindow = new google.maps.InfoWindow({ content: html[closest] });
+        infowindow.open(map, mymarker_near);
+
+
+}
+
+
+function DeleteMarkers() {
+        //Loop through all the markers and remove
+        for (var i = 0; i < allMarkers_object.length; i++) {
+            allMarkers_object[i].setMap(null);
+        }
+};
 
         jQuery(document).ready(function ($) {
             initMap();
