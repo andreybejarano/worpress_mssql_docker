@@ -43,6 +43,7 @@ get_header();
            <h2 class="title"><?=$fields['titulo']?></h2>
         </div>
         <div class="items-row">
+         <?php var_dump($fields);?>
 
           <?php foreach($fields['listado_modulos_tramites'] as $modules): ?>
          
