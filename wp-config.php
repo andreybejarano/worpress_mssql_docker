@@ -20,6 +20,7 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
+putenv("ProjectNami.UTF8=1");
 define('WP_CACHE', true);
 define( 'WPCACHEHOME', '/var/www/html/wp-content/plugins/wp-super-cache/' );
 define( 'DB_NAME', 'wpSite' );
@@ -97,4 +98,4 @@ require_once( ABSPATH . 'wp-settings.php' );
 
 @ini_set( 'upload_max_size' , '12M' );
 @ini_set( 'post_max_size', '13M');
-@ini_set( 'memory_limit', '15M' );
+@ini_set( 'memory_limit', '1500M' );
