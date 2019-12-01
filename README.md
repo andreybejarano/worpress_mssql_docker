@@ -13,9 +13,5 @@ $ docker-compose up --build
 **Note:** Open browser url http://localhost
 
 
-https://www.microsoft.com/es-ar/download/confirmation.aspx?id=36434
-https://www.microsoft.com/es-ar/download/confirmation.aspx?id=15336
-https://www.microsoft.com/es-ar/download/confirmation.aspx?id=14632
-https://www.microsoft.com/es-es/download/confirmation.aspx?id=30679
-
+ODBC driver 11 for SQL server: https://www.microsoft.com/es-ar/download/confirmation.aspx?id=36434
 c++ run time 2015 to 2019: https://support.microsoft.com/es-mx/help/2977003/the-latest-supported-visual-c-downloads
