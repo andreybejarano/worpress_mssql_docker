@@ -66,15 +66,14 @@ function get_breadcrumb() {
     global $post;
 
     echo '<div class="breadcrum-bar"><ol class="list">';
-    echo '<li class="item active">Destadados IERIC</li>';
-
-
+    echo "<li class='item'><a href='".DOMAIN."' rel='nofollow' class='link'>INICIO</a></li>";
 
     if(is_post_type_archive( 'destacados' ) ){
-        echo "<li class='item'><a href='".DOMAIN."/destacados' rel='nofollow' class='link'>Destacados IERIC</a></li>";
+       
+        echo "<li class='item active'><a href='".DOMAIN."/destacados' rel='nofollow' class='link'>Destacados IERIC</a></li>";
     }
     
-    if(is_singular('destacados')){
+    elseif(is_singular('destacados')){
         
         echo "<li class='item'><a href='".DOMAIN."/destacados' rel='nofollow' class='link'>Destacados IERIC</a></li>";
         echo "<li class='item active'>".$post->post_title."</li>";
@@ -195,8 +194,43 @@ function getConyuntura() {
         echo '</ul></article>';
     }
     echo '<div class="border"></div></section></div>';
-            
-
+        
                 
  }
+
+
+
+ function joints_page_navi($pages = '', $range = 2) {
+    $showitems = ($range * 3)+1;
+    global $paged;
+         if(empty($paged)) $paged = 1;
+    if($pages == '')
+             {
+                     global $wp_query;
+                     $pages = $wp_query->max_num_pages;
+                     if(!$pages)
+                     {
+                             $pages = 1;
+                     }
+             }
+
+         if(1 != $pages)
+         {
+                 echo "<section class='paginador'>";
+                 if($paged > 2 && $paged > $range+1 && $showitems < $pages) echo "<a class='arrow' href='".get_pagenum_link(1)."'><i class='fa fa-angle-double-left' aria-hidden='true'></i></a>";
+                 if($paged > 1 && $showitems < $pages) echo "<a class='arrow' href='".get_pagenum_link($paged - 1)."'><i class='fa fa-angle-left' aria-hidden='true'></i></a>";
+
+                 for ($i=1; $i < $pages; $i++)
+                 {
+                         if (1 != $pages &&( !($i >= $paged+$range+1 || $i <= $paged-$range-1) || $pages <= $showitems ))
+                         {
+                                 echo ($paged == $i)? "<a class='active'>".$i."</a>":"<a href='".get_pagenum_link($i)."' class='inactive' >".$i."</a>";
+                         }
+                 }
+
+                 if ($paged < $pages && $showitems < $pages) echo "<a class='arrow' href='".get_pagenum_link($paged + 1)."'><i class='fa fa-angle-right' aria-hidden='true'></i></a>";
+                 if ($paged < $pages-1 &&  $paged+$range-1 < $pages && $showitems < $pages) echo "<a class='arrow' href='".get_pagenum_link($pages)."'><i class='fa fa-angle-double-right' aria-hidden='true'></i></a>";
+                 echo "</section>\n";
+         }
+}
 ?>

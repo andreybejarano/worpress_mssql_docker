@@ -37,8 +37,10 @@ $elemento = get_sub_field('elemento');
 
  
 if($link['enlace_interno']){
+
 	//$url_link = get_permalink($link['enlace_interno']->ID);
-    $id_link = $link['enlace_interno']->ID;
+
+    $id_link = $link['enlace_interno'][0]->ID;
 	$url_link = get_permalink($id_link);
 
 }

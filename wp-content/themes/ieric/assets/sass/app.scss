@@ -18,6 +18,11 @@ body {
   background: #cacaca;
 }
 
+
+*{
+  box-sizing: border-box;
+}
+
 .main-ctn {
   width: 100%;
   max-width: 970px;

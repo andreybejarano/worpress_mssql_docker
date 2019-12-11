@@ -26,7 +26,7 @@ $data = $the_query->posts[0];
 $terms_sistema_pagos = get_terms( array(
     'taxonomy' => 'estadistica',
     'hide_empty' => false,
-    'parent'   => 24,
+    'parent'   => 37,
     'orderby' => 'ID',
     'order' => 'ASC',
 ));
@@ -64,7 +64,7 @@ get_header(); ?>
                     $link = get_field('link_externo', "term_".$term->term_id);?>
 
                     <?php if($tipo == "Contenido"): ?>
-                        <li class="item"><a href="<?= str_replace('estadistica/','estadisticas/', get_term_link($term->term_id)); ?>" class="link"><?=$term->name?></a></li>
+                        <li class="item"><a href="<?= get_term_link($term->term_id) ?>" class="link"><?=$term->name?></a></li>
                     <?php else: ?>
                         <li class="item"><a href="<?=$link?>" target="_blank" class="link"><?=$term->name?></a></li>
                     <?php endif; ?>
