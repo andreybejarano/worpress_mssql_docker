@@ -38,6 +38,6 @@
     "jquery": "^3.4.1",
     "jquery.fancybox": "^2.1.5",
     "node.normalize.scss": "^3.0.3",
-    "swiper": "^5.2.0"
+    "swiper": "^6.5.1"
   }
 }
